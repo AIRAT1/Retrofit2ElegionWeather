@@ -14,7 +14,6 @@ public class BaseActivity extends AppCompatActivity {
     protected ProgressDialog progressDialog;
 
     public void showProgress() {
-//        Log.d("LOG", "show" + System.currentTimeMillis());
         if (progressDialog == null) {
             progressDialog = new ProgressDialog(this, R.style.custom_dialog);
             progressDialog.setCancelable(false);
@@ -27,7 +26,6 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
     public void hideProgress() {
-//        Log.d("LOG", "hide" + System.currentTimeMillis());
         if (progressDialog != null) {
             if (progressDialog.isShowing()) {
                 progressDialog.hide();
