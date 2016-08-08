@@ -18,6 +18,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     @BindView(R.id.txt_city) TextView txtCity;
+    @BindView(R.id.txt_temperature) TextView txtTemperature;
     @BindView(R.id.txt_status) TextView txtStatus;
     @BindView(R.id.txt_humidity) TextView txtHumidity;
     @BindView(R.id.txt_pressure) TextView txtPressure;
@@ -45,11 +46,13 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(Call<Model> call, Response<Model> response) {
                 try {
                     String city = response.body().getName();
+                    String temperature = String.valueOf(response.body().getMain().getTemp());
                     String status = response.body().getWeather().get(0).getDescription();
                     String humidity = String.valueOf(response.body().getMain().getHumidity());
                     String pressure = String.valueOf(response.body().getMain().getPressure());
 
                     txtCity.setText("City: " + city);
+                    txtTemperature.setText("Temperature: " + temperature);
                     txtStatus.setText("Status: " + status);
                     txtHumidity.setText("Humidity: " + humidity);
                     txtPressure.setText("Pressure: " + pressure);
