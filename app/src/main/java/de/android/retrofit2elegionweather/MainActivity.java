@@ -52,10 +52,10 @@ public class MainActivity extends AppCompatActivity {
                     String pressure = String.valueOf(response.body().getMain().getPressure());
 
                     txtCity.setText("City: " + city);
-                    txtTemperature.setText("Temperature: " + temperature);
+                    txtTemperature.setText("Temperature: " + temperature + " C");
                     txtStatus.setText("Status: " + status);
-                    txtHumidity.setText("Humidity: " + humidity);
-                    txtPressure.setText("Pressure: " + pressure);
+                    txtHumidity.setText("Humidity: " + humidity + " %");
+                    txtPressure.setText("Pressure: " + pressure + " kPa");
                 }catch (Exception e) {
                     Log.d(TAG, e.getMessage());
                     Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
