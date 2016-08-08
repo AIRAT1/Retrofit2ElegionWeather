@@ -5,6 +5,6 @@ import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface RestInterface {
-    @GET("data/2.5/weather?q=Berlin,de&APPID=a67b395621fb7f28f3896da2171e6a40")
+    @GET("weather?q=Berlin,de&mode=json&units=metric&lang=de&APPID=" + BuildConfig.OPEN_WEATHER_MAP_API_KEY)
     Call<Model> getWeatherReport();
 }
