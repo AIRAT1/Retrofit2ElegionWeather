@@ -81,7 +81,13 @@ public class MainActivity extends BaseActivity {
                     txtStatus.setText(status);
                     txtHumidity.setText(humidity + " %");
                     txtPressure.setText(pressure + " kPa");
+
+                    // save weather values in preferences
+                    saveUserInfoValue();
                 }catch (NullPointerException e) {
+                    // load values from preferences
+                    loadWeatherInfoValue();
+
                     Log.d(TAG, e.getMessage());
                     Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                 }
@@ -90,6 +96,10 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onFailure(Call<Model> call, Throwable t) {
                 hideProgress();
+
+                // load values from preferences
+                loadWeatherInfoValue();
+
                 Log.d(TAG, t.getMessage());
                 Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
             }
@@ -99,6 +109,7 @@ public class MainActivity extends BaseActivity {
         Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).show();
     }
     private void loadWeatherInfoValue() {
+        // TODO load values from preferences if connection is failed
         List<String> weatherData = dataManager.getPreferenceManager().loadWeatherData();
         for (int i = 0; i < weatherData.size(); i++) {
             weatherInfoViews.get(i).setText(weatherData.get(i).toString());
