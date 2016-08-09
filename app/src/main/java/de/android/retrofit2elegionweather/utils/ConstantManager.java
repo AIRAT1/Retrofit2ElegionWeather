@@ -7,4 +7,6 @@ public class ConstantManager {
     public static final String KEY_HUMIDITY = "KEY_HUMIDITY";
     public static final String KEY_PRESSURE = "KEY_PRESSURE";
     public static final String KEY_TIME = "KEY_TIME";
+
+    public static final int DIALOG = 0;
 }

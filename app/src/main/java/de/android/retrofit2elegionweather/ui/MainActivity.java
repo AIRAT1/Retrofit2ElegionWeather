@@ -1,5 +1,8 @@
 package de.android.retrofit2elegionweather.ui;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -16,6 +19,7 @@ import de.android.retrofit2elegionweather.POJO.Model;
 import de.android.retrofit2elegionweather.R;
 import de.android.retrofit2elegionweather.RestInterface;
 import de.android.retrofit2elegionweather.data.managers.DataManager;
+import de.android.retrofit2elegionweather.utils.ConstantManager;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -127,5 +131,39 @@ public class MainActivity extends BaseActivity {
             weatherData.add(weatherFieldView.getText().toString());
         }
         dataManager.getPreferenceManager().saveWeatherData(weatherData);
+    }
+
+    @Override
+    protected Dialog onCreateDialog(int id) {
+        switch (id) {
+            case ConstantManager.DIALOG:
+                String[] selectItems = {
+                        getString(R.string.add_new_city),
+                        getString(R.string.delete_city_from_list),
+                        getString(R.string.cancel)};
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(R.string.select_action)
+                        .setItems(selectItems, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                switch (i) {
+                                    case 0:
+                                        showSnackbar("Add");
+                                        break;
+                                    case 1:
+                                        showSnackbar("Delete");
+                                        break;
+                                    case 2:
+                                        showSnackbar("Cancel");
+                                        break;
+                                    default:
+                                        break;
+                                }
+                            }
+                        }).show();
+                return builder.create();
+            default:
+                return null;
+        }
     }
 }
