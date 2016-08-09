@@ -6,4 +6,5 @@ public class ConstantManager {
     public static final String KEY_STATUS = "KEY_STATUS";
     public static final String KEY_HUMIDITY = "KEY_HUMIDITY";
     public static final String KEY_PRESSURE = "KEY_PRESSURE";
+    public static final String KEY_TIME = "KEY_TIME";
 }

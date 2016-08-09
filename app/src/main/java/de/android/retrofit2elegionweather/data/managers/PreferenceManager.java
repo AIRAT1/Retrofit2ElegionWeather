@@ -15,7 +15,8 @@ public class PreferenceManager {
             ConstantManager.KEY_TEMPERATURE,
             ConstantManager.KEY_STATUS,
             ConstantManager.KEY_HUMIDITY,
-            ConstantManager.KEY_PRESSURE
+            ConstantManager.KEY_PRESSURE,
+            ConstantManager.KEY_TIME
     };
 
     public PreferenceManager() {

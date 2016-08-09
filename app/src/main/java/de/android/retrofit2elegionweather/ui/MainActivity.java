@@ -32,6 +32,7 @@ public class MainActivity extends BaseActivity {
     @BindView(R.id.txt_status) TextView txtStatus;
     @BindView(R.id.txt_humidity) TextView txtHumidity;
     @BindView(R.id.txt_pressure) TextView txtPressure;
+    @BindView(R.id.txt_time) TextView txtTime;
     @BindView(R.id.main_coordinator_container) CoordinatorLayout coordinatorLayout;
 
     @Override
@@ -44,6 +45,8 @@ public class MainActivity extends BaseActivity {
         initWeatherInfoViews();
 
         getReport();
+
+        List<String> test = dataManager.getPreferenceManager().loadWeatherData();
     }
 
     private void initWeatherInfoViews() {
@@ -53,6 +56,7 @@ public class MainActivity extends BaseActivity {
         weatherInfoViews.add(txtStatus);
         weatherInfoViews.add(txtHumidity);
         weatherInfoViews.add(txtPressure);
+        weatherInfoViews.add(txtTime);
     }
 
     private void getReport() {
@@ -75,12 +79,14 @@ public class MainActivity extends BaseActivity {
                     String status = response.body().getWeather().get(0).getDescription();
                     String humidity = String.valueOf(response.body().getMain().getHumidity());
                     String pressure = String.valueOf(response.body().getMain().getPressure());
+                    String time = String.valueOf(response.body().getDt());
 
                     txtCity.setText(city);
-                    txtTemperature.setText(temperature + " C");
+                    txtTemperature.setText(temperature);
                     txtStatus.setText(status);
-                    txtHumidity.setText(humidity + " %");
-                    txtPressure.setText(pressure + " kPa");
+                    txtHumidity.setText(humidity);
+                    txtPressure.setText(pressure);
+                    txtTime.setText(time);
 
                     // save weather values in preferences
                     saveUserInfoValue();
