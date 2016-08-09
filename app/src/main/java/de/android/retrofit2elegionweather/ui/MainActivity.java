@@ -10,8 +10,11 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -83,7 +86,11 @@ public class MainActivity extends BaseActivity {
                     String status = response.body().getWeather().get(0).getDescription();
                     String humidity = String.valueOf(response.body().getMain().getHumidity());
                     String pressure = String.valueOf(response.body().getMain().getPressure());
-                    String time = String.valueOf(response.body().getDt());
+
+                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS z");
+                    TimeZone tz = TimeZone.getTimeZone("Europe/Moscow");
+                    dateFormat.setTimeZone(tz);
+                    String time = dateFormat.format(System.currentTimeMillis());
 
                     txtCity.setText(city);
                     txtTemperature.setText(temperature);
