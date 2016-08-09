@@ -76,11 +76,11 @@ public class MainActivity extends BaseActivity {
                     String humidity = String.valueOf(response.body().getMain().getHumidity());
                     String pressure = String.valueOf(response.body().getMain().getPressure());
 
-                    txtCity.setText("City: " + city);
-                    txtTemperature.setText("Temperature: " + temperature + " C");
-                    txtStatus.setText("Status: " + status);
-                    txtHumidity.setText("Humidity: " + humidity + " %");
-                    txtPressure.setText("Pressure: " + pressure + " kPa");
+                    txtCity.setText(city);
+                    txtTemperature.setText(temperature + " C");
+                    txtStatus.setText(status);
+                    txtHumidity.setText(humidity + " %");
+                    txtPressure.setText(pressure + " kPa");
                 }catch (NullPointerException e) {
                     Log.d(TAG, e.getMessage());
                     Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
@@ -105,6 +105,10 @@ public class MainActivity extends BaseActivity {
         }
     }
     private void saveUserInfoValue() {
-
+        List<String> weatherData = new ArrayList<>();
+        for (TextView weatherFieldView : weatherInfoViews) {
+            weatherData.add(weatherFieldView.getText().toString());
+        }
+        dataManager.getPreferenceManager().saveWeatherData(weatherData);
     }
 }

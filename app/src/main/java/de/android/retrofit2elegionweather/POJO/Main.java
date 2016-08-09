@@ -14,7 +14,7 @@ public class Main {
     private double temp;
     @SerializedName("pressure")
     @Expose
-    private int pressure;
+    private double pressure;
     @SerializedName("humidity")
     @Expose
     private int humidity;
@@ -48,7 +48,7 @@ public class Main {
      * @return
      *     The pressure
      */
-    public int getPressure() {
+    public double getPressure() {
         return pressure;
     }
 
