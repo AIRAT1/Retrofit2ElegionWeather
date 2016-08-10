@@ -34,6 +34,7 @@ public class MainActivity extends BaseActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     private DataManager dataManager;
     private List<TextView> weatherInfoViews;
+    private List<String> startCityList;
 
     @BindView(R.id.txt_city) TextView txtCity;
     @BindView(R.id.txt_temperature) TextView txtTemperature;
@@ -48,13 +49,25 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+        startCityListInit();
+
         dataManager = DataManager.getInstance();
 
         initWeatherInfoViews();
 
         getReport();
 
-        List<String> test = dataManager.getPreferenceManager().loadWeatherData();
+//        List<String> test = dataManager.getPreferenceManager().loadWeatherData();
+    }
+
+    private void startCityListInit() {
+        startCityList = new ArrayList<>();
+        startCityList.add("Berlin, de");
+        startCityList.add("Braunschweig, de");
+        startCityList.add("Koeln, de");
+        startCityList.add("Muenchen, de");
+        startCityList.add("Hamburg, de");
     }
 
     private void initWeatherInfoViews() {
@@ -73,60 +86,64 @@ public class MainActivity extends BaseActivity {
                 .baseUrl("http://api.openweathermap.org/data/2.5/")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
+        for (int i = 0; i < startCityList.size(); i++) {
+            RestInterface service = retrofit.create(RestInterface.class);
+            Call<Model> call = service.getWeatherReport(
+                    startCityList.get(i),
+                    ConstantManager.JSON_MODE,
+                    ConstantManager.METRIC_MODE,
+                    ConstantManager.LANGUAGE_MODE,
+                    BuildConfig.OPEN_WEATHER_MAP_API_KEY);
 
-        RestInterface service = retrofit.create(RestInterface.class);
-        Call<Model> call = service.getWeatherReport(
-                "Berlin, de",
-                ConstantManager.JSON_MODE,
-                ConstantManager.METRIC_MODE,
-                ConstantManager.LANGUAGE_MODE,
-                BuildConfig.OPEN_WEATHER_MAP_API_KEY);
+            call.enqueue(new Callback<Model>() {
+                @Override
+                public void onResponse(Call<Model> call, Response<Model> response) {
+                    hideProgress();
+                    try {
+                        String city = response.body().getName();
+                        String temperature = String.valueOf(response.body().getMain().getTemp());
+                        String status = response.body().getWeather().get(0).getDescription();
+                        String humidity = String.valueOf(response.body().getMain().getHumidity());
+                        String pressure = String.valueOf(response.body().getMain().getPressure());
 
-        call.enqueue(new Callback<Model>() {
-            @Override
-            public void onResponse(Call<Model> call, Response<Model> response) {
-                hideProgress();
-                try {
-                    String city = response.body().getName();
-                    String temperature = String.valueOf(response.body().getMain().getTemp());
-                    String status = response.body().getWeather().get(0).getDescription();
-                    String humidity = String.valueOf(response.body().getMain().getHumidity());
-                    String pressure = String.valueOf(response.body().getMain().getPressure());
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS z");
+                        TimeZone tz = TimeZone.getTimeZone("Europe/Berlin");
+                        dateFormat.setTimeZone(tz);
+                        String time = dateFormat.format(System.currentTimeMillis());
 
-                    DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS z");
-                    TimeZone tz = TimeZone.getTimeZone("Europe/Berlin");
-                    dateFormat.setTimeZone(tz);
-                    String time = dateFormat.format(System.currentTimeMillis());
+                        txtCity.setText(city);
+                        Log.d("LOG", city);
+                        txtTemperature.setText(temperature);
+                        Log.d("LOG", temperature);
+                        txtStatus.setText(status);
+                        txtHumidity.setText(humidity);
+                        txtPressure.setText(pressure);
+                        txtTime.setText(time);
 
-                    txtCity.setText(city);
-                    txtTemperature.setText(temperature);
-                    txtStatus.setText(status);
-                    txtHumidity.setText(humidity);
-                    txtPressure.setText(pressure);
-                    txtTime.setText(time);
+                        // save weather values in preferences
+                        saveUserInfoValue();
+                    }catch (NullPointerException e) {
+                        // load values from preferences
+                        loadWeatherInfoValue();
 
-                    // save weather values in preferences
-                    saveUserInfoValue();
-                }catch (NullPointerException e) {
+                        Log.d(TAG, e.getMessage());
+                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Model> call, Throwable t) {
+                    hideProgress();
+
                     // load values from preferences
                     loadWeatherInfoValue();
 
-                    Log.d(TAG, e.getMessage());
-                    Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    Log.d(TAG, t.getMessage());
+                    Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 }
-            }
+            });
+        }
 
-            @Override
-            public void onFailure(Call<Model> call, Throwable t) {
-                hideProgress();
-
-                // load values from preferences
-                loadWeatherInfoValue();
-
-                Log.d(TAG, t.getMessage());
-                Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
-            }
-        });
     }
     private void showSnackbar(String message) {
         Snackbar.make(coordinatorLayout, message, Snackbar.LENGTH_LONG).show();
