@@ -94,7 +94,7 @@ public class MainActivity extends BaseActivity {
                     String pressure = String.valueOf(response.body().getMain().getPressure());
 
                     DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS z");
-                    TimeZone tz = TimeZone.getTimeZone("Europe/Moscow");
+                    TimeZone tz = TimeZone.getTimeZone("Europe/Berlin");
                     dateFormat.setTimeZone(tz);
                     String time = dateFormat.format(System.currentTimeMillis());
 
