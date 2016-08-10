@@ -22,17 +22,17 @@ public class PreferenceManager {
     public PreferenceManager() {
         this.sharedPreferences = Retrofit2ElegionWeatherApplication.getSharedPreferences();
     }
-    public void saveWeatherData(List<String> weatherFields) {
+    public void saveWeatherData(List<String> weatherFields, String city) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         for (int i = 0; i <WEATHER_FIELDS.length; i++) {
-            editor.putString(WEATHER_FIELDS[i], weatherFields.get(i));
+            editor.putString(WEATHER_FIELDS[i] + city, weatherFields.get(i));
         }
         editor.apply();
     }
-    public List<String> loadWeatherData() {
+    public List<String> loadWeatherData(String city) {
         List<String> weatherFields = new ArrayList<>();
         for (int i = 0; i < WEATHER_FIELDS.length; i++) {
-            weatherFields.add(sharedPreferences.getString(WEATHER_FIELDS[i], "null"));
+            weatherFields.add(sharedPreferences.getString(WEATHER_FIELDS[i] + city, "null"));
         }
         return weatherFields;
     }

@@ -35,6 +35,7 @@ public class MainActivity extends BaseActivity {
     private DataManager dataManager;
     private List<TextView> weatherInfoViews;
     private List<String> startCityList;
+    private String city;
 
     @BindView(R.id.txt_city) TextView txtCity;
     @BindView(R.id.txt_temperature) TextView txtTemperature;
@@ -100,7 +101,7 @@ public class MainActivity extends BaseActivity {
                 public void onResponse(Call<Model> call, Response<Model> response) {
                     hideProgress();
                     try {
-                        String city = response.body().getName();
+                        city = response.body().getName();
                         String temperature = String.valueOf(response.body().getMain().getTemp());
                         String status = response.body().getWeather().get(0).getDescription();
                         String humidity = String.valueOf(response.body().getMain().getHumidity());
@@ -150,7 +151,7 @@ public class MainActivity extends BaseActivity {
     }
     private void loadWeatherInfoValue() {
         // TODO load values from preferences if connection is failed
-        List<String> weatherData = dataManager.getPreferenceManager().loadWeatherData();
+        List<String> weatherData = dataManager.getPreferenceManager().loadWeatherData(city);
         for (int i = 0; i < weatherData.size(); i++) {
             weatherInfoViews.get(i).setText(weatherData.get(i).toString());
         }
@@ -160,7 +161,7 @@ public class MainActivity extends BaseActivity {
         for (TextView weatherFieldView : weatherInfoViews) {
             weatherData.add(weatherFieldView.getText().toString());
         }
-        dataManager.getPreferenceManager().saveWeatherData(weatherData);
+        dataManager.getPreferenceManager().saveWeatherData(weatherData, city);
     }
 
     @Override
