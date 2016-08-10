@@ -75,7 +75,12 @@ public class MainActivity extends BaseActivity {
                 .build();
 
         RestInterface service = retrofit.create(RestInterface.class);
-        Call<Model> call = service.getWeatherReport("Berlin, de", "json", "metric", "de", BuildConfig.OPEN_WEATHER_MAP_API_KEY);
+        Call<Model> call = service.getWeatherReport(
+                "Berlin, de",
+                ConstantManager.JSON_MODE,
+                ConstantManager.METRIC_MODE,
+                ConstantManager.LANGUAGE_MODE,
+                BuildConfig.OPEN_WEATHER_MAP_API_KEY);
 
         call.enqueue(new Callback<Model>() {
             @Override

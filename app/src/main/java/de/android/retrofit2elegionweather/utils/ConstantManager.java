@@ -8,5 +8,9 @@ public class ConstantManager {
     public static final String KEY_PRESSURE = "KEY_PRESSURE";
     public static final String KEY_TIME = "KEY_TIME";
 
+    public static final String JSON_MODE = "json";
+    public static final String METRIC_MODE = "metric";
+    public static final String LANGUAGE_MODE = "de";
+
     public static final int DIALOG = 0;
 }
