@@ -33,6 +33,7 @@ dependencies {
     }
     compile 'com.squareup.okhttp3:okhttp:3.3.1'
     compile 'com.squareup.retrofit2:converter-gson:2.1.0'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.3.1'
     compile 'org.glassfish.main:javax.annotation:4.0-b33'
 
     compile 'com.jakewharton:butterknife:8.2.1'

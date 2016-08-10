@@ -18,6 +18,7 @@ import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.android.retrofit2elegionweather.BuildConfig;
 import de.android.retrofit2elegionweather.POJO.Model;
 import de.android.retrofit2elegionweather.R;
 import de.android.retrofit2elegionweather.RestInterface;
@@ -74,7 +75,7 @@ public class MainActivity extends BaseActivity {
                 .build();
 
         RestInterface service = retrofit.create(RestInterface.class);
-        Call<Model> call = service.getWeatherReport();
+        Call<Model> call = service.getWeatherReport("Berlin, de", "json", "metric", "de", BuildConfig.OPEN_WEATHER_MAP_API_KEY);
 
         call.enqueue(new Callback<Model>() {
             @Override
