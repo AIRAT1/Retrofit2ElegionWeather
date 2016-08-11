@@ -14,6 +14,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 
 import butterknife.BindView;
@@ -102,12 +103,12 @@ public class MainActivity extends BaseActivity {
                     hideProgress();
                     try {
                         city = response.body().getName();
-                        String temperature = String.valueOf(response.body().getMain().getTemp());
+                        String temperature = String.valueOf(Math.round(response.body().getMain().getTemp()));
                         String status = response.body().getWeather().get(0).getDescription();
                         String humidity = String.valueOf(response.body().getMain().getHumidity());
                         String pressure = String.valueOf(response.body().getMain().getPressure());
 
-                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:SS z");
+                        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm z", Locale.GERMANY);
                         TimeZone tz = TimeZone.getTimeZone("Europe/Berlin");
                         dateFormat.setTimeZone(tz);
                         String time = dateFormat.format(System.currentTimeMillis());
