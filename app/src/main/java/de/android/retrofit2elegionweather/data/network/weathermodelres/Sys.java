@@ -1,5 +1,5 @@
 
-package de.android.retrofit2elegionweather.POJO;
+package de.android.retrofit2elegionweather.data.network.weathermodelres;
 
 import javax.annotation.Generated;
 import com.google.gson.annotations.Expose;

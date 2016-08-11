@@ -20,11 +20,13 @@ import java.util.TimeZone;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.android.retrofit2elegionweather.BuildConfig;
-import de.android.retrofit2elegionweather.POJO.Model;
 import de.android.retrofit2elegionweather.R;
-import de.android.retrofit2elegionweather.RestInterface;
 import de.android.retrofit2elegionweather.data.managers.DataManager;
+import de.android.retrofit2elegionweather.data.network.RestService;
+import de.android.retrofit2elegionweather.data.network.weathermodelres.Model;
+import de.android.retrofit2elegionweather.utils.AppConfig;
 import de.android.retrofit2elegionweather.utils.ConstantManager;
+import de.android.retrofit2elegionweather.utils.NetworkStatusChecker;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -52,18 +54,26 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        startCityListInit();
-
         dataManager = DataManager.getInstance();
+
+        initStartCityList();
 
         initWeatherInfoViews();
 
-        getReport();
+//        getReport();
+
+        if (NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
+            getReport();
+        } else {
+            // TODO load values from preferences into fields
+            showSnackbar("Network connection failed");
+            loadWeatherInfoValue();
+        }
 
 //        List<String> test = dataManager.getPreferenceManager().loadWeatherData();
     }
 
-    private void startCityListInit() {
+    private void initStartCityList() {
         startCityList = new ArrayList<>();
         startCityList.add("Berlin, de");
         startCityList.add("Braunschweig, de");
@@ -85,11 +95,11 @@ public class MainActivity extends BaseActivity {
     private void getReport() {
         showProgress();
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://api.openweathermap.org/data/2.5/")
+                .baseUrl(AppConfig.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         for (int i = 0; i < startCityList.size(); i++) {
-            RestInterface service = retrofit.create(RestInterface.class);
+            RestService service = retrofit.create(RestService.class);
             Call<Model> call = service.getWeatherReport(
                     startCityList.get(i),
                     ConstantManager.JSON_MODE,

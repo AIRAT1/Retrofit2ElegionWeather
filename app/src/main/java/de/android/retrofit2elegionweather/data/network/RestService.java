@@ -1,13 +1,11 @@
-package de.android.retrofit2elegionweather;
+package de.android.retrofit2elegionweather.data.network;
 
-import de.android.retrofit2elegionweather.POJO.Model;
+import de.android.retrofit2elegionweather.data.network.weathermodelres.Model;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;
 
-public interface RestInterface {
-//    @GET("weather?q=" + "Berlin, de" + "&mode=json&units=metric&lang=de&APPID=" + BuildConfig.OPEN_WEATHER_MAP_API_KEY)
-//    Call<Model> getWeatherReport();
+public interface RestService {
     @GET("weather")
     Call<Model> getWeatherReport(
             @Query("q") String name,
