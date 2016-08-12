@@ -1,4 +1,4 @@
-package de.android.retrofit2elegionweather.ui;
+package de.android.retrofit2elegionweather.ui.activities;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;

@@ -1,4 +1,4 @@
-package de.android.retrofit2elegionweather.ui;
+package de.android.retrofit2elegionweather.ui.activities;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -33,8 +33,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends BaseActivity {
-    private static final String TAG = MainActivity.class.getSimpleName();
+public class DetailActivity extends BaseActivity {
+    private static final String TAG = DetailActivity.class.getSimpleName();
     private DataManager dataManager;
     private List<TextView> weatherInfoViews;
     private List<String> startCityList;
@@ -51,7 +51,7 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_detail);
         ButterKnife.bind(this);
 
         dataManager = DataManager.getInstance();
@@ -139,7 +139,7 @@ public class MainActivity extends BaseActivity {
                         loadWeatherInfoValue();
 
                         Log.d(TAG, e.getMessage());
-                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(DetailActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -151,7 +151,7 @@ public class MainActivity extends BaseActivity {
                     loadWeatherInfoValue();
 
                     Log.d(TAG, t.getMessage());
-                    Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(DetailActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
         }
