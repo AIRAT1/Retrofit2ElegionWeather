@@ -59,7 +59,7 @@ public class WeatherListActivity extends BaseActivity {
             loadWeatherInfoValue();
         }
 
-//        List<String> test = dataManager.getPreferenceManager().loadWeatherData();
+//        List<String> test = dataManager.getPreferenceManager().loadWeatherData("Berlin");
     }
     private void initStartCityList() {
         startCityList = new ArrayList<>();
