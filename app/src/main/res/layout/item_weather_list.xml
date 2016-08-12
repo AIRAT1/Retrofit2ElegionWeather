@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/gradient"
                 android:background="#a0000000"
-                android:alpha="1.0"
+                android:alpha="0.9"
                 app:aspect_ratio="2.78"/>
             <TextView
                 android:id="@+id/item_city_name"
