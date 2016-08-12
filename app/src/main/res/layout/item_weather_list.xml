@@ -20,14 +20,15 @@
             <de.android.retrofit2elegionweather.ui.views.AspectRatioImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/thermometer"
+                android:src="@drawable/gradient"
                 android:background="#a0000000"
+                android:alpha="1.0"
                 app:aspect_ratio="2.78"/>
             <TextView
                 android:id="@+id/item_city_name"
                 style="@style/ItemWeather"
                 android:layout_gravity="center_vertical"
-                tools:text="Berlin"
+                tools:text="Braunschweig"
                 android:layout_marginLeft="@dimen/activity_horizontal_margin_16"/>
             <TextView
                 android:id="@+id/item_temperature"

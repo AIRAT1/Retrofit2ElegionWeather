@@ -3,6 +3,8 @@
     <dimen name="activity_horizontal_margin_16">16dp</dimen>
     <dimen name="activity_vertical_margin_16">16dp</dimen>
     <dimen name="font_large_40">40sp</dimen>
+    <dimen name="font_medium_30">30sp</dimen>
+    <dimen name="font_middle_20">20sp</dimen>
     <dimen name="activity_horizontal_margin_8">8dp</dimen>
     <dimen name="activity_vertical_margin_56">56dp</dimen>
     <dimen name="corner_radius">2dp</dimen>
