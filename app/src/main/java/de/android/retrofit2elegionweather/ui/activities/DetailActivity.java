@@ -46,7 +46,7 @@ public class DetailActivity extends BaseActivity {
     @BindView(R.id.txt_humidity) TextView txtHumidity;
     @BindView(R.id.txt_pressure) TextView txtPressure;
     @BindView(R.id.txt_time) TextView txtTime;
-    @BindView(R.id.main_coordinator_container) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.detail_coordinator_container) CoordinatorLayout coordinatorLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
