@@ -31,14 +31,13 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
     }
 
     public static class WeatherViewHolder extends RecyclerView.ViewHolder {
-        protected AspectRatioImageView germanColors;
-        protected TextView itemCityName, itemCityTemperature;
+        protected AspectRatioImageView aspectRatioImageView;
+        protected TextView itemShortWeather;
         public WeatherViewHolder(View itemView) {
             super(itemView);
 
-            germanColors = (AspectRatioImageView) itemView.findViewById(R.id.german_colors);
-            itemCityName = (TextView) itemView.findViewById(R.id.item_city_name);
-            itemCityTemperature = (TextView) itemView.findViewById(R.id.item_temperature);
+            aspectRatioImageView = (AspectRatioImageView) itemView.findViewById(R.id.aspect_ratio_image_view);
+            itemShortWeather = (TextView) itemView.findViewById(R.id.item_short_weather);
         }
     }
 }

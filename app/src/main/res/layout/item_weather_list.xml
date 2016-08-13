@@ -18,25 +18,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <de.android.retrofit2elegionweather.ui.views.AspectRatioImageView
-                android:id="@+id/german_colors"
+                android:id="@+id/aspect_ratio_image_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/gradient"
-                android:background="#a0000000"
+                android:src="@drawable/wooden_circles"
+                android:scaleType="centerCrop"
                 android:alpha="0.9"
                 app:aspect_ratio="2.78"/>
+
             <TextView
-                android:id="@+id/item_city_name"
+                android:id="@+id/item_short_weather"
+                android:gravity="center_horizontal"
                 style="@style/ItemWeather"
-                android:layout_gravity="center_vertical"
-                tools:text="Braunschweig"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin_16"/>
-            <TextView
-                android:id="@+id/item_temperature"
-                style="@style/ItemWeather"
-                android:layout_gravity="center_vertical|right"
-                tools:text="20 C"
-                android:layout_marginRight="@dimen/activity_horizontal_margin_16"/>
+                android:layout_gravity="center"
+                tools:text="Braunschweig 20 C"/>
         </FrameLayout>
     </LinearLayout>
 
