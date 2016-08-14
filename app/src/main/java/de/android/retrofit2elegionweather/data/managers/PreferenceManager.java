@@ -10,7 +10,7 @@ import de.android.retrofit2elegionweather.utils.Retrofit2ElegionWeatherApplicati
 
 public class PreferenceManager {
     private SharedPreferences sharedPreferences;
-    private static final String[] WEATHER_FIELDS = {
+    public static final String[] WEATHER_FIELDS = {
             ConstantManager.KEY_CITY,
             ConstantManager.KEY_TEMPERATURE,
             ConstantManager.KEY_STATUS,

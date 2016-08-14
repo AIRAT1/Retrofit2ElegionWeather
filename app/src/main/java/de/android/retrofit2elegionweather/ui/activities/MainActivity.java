@@ -25,6 +25,7 @@ import butterknife.ButterKnife;
 import de.android.retrofit2elegionweather.BuildConfig;
 import de.android.retrofit2elegionweather.R;
 import de.android.retrofit2elegionweather.data.managers.DataManager;
+import de.android.retrofit2elegionweather.data.managers.PreferenceManager;
 import de.android.retrofit2elegionweather.data.network.RestService;
 import de.android.retrofit2elegionweather.data.network.weathermodelres.Model;
 import de.android.retrofit2elegionweather.ui.adapters.WeatherAdapter;
@@ -79,11 +80,19 @@ public class MainActivity extends BaseActivity {
         } else {
             // TODO load values from preferences into fields
             showSnackbar("Network connection failed");
+            getReportWithoutConnection();
             loadWeatherInfoValue();
         }
 
 //        List<String> test = dataManager.getPreferenceManager().loadWeatherData("Berlin");
     }
+
+    private void getReportWithoutConnection() {
+        for (int i = 0; i < startCityList.size(); i++) {
+            weatherInfo = new String[PreferenceManager.WEATHER_FIELDS.length];
+        }
+    }
+
     private void initStartCityList() {
         startCityList = new ArrayList<>();
         startCityList.add("Berlin, de");
