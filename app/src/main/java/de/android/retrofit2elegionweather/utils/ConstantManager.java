@@ -13,6 +13,8 @@ public class ConstantManager {
     public static final String LANGUAGE_MODE = "de";
 
     public static final String CITY_NAME = "CITY_NAME";
+    public static final String RESULT = "RESULT";
 
     public static final int DIALOG = 0;
+    public static final int REQUEST_CODE = 1;
 }

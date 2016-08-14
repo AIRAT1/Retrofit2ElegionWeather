@@ -46,6 +46,7 @@ public class MainActivity extends BaseActivity {
     private String[] weatherInfo;
     private List<String> startCityList;
     private List<String> shortWeather;
+    private WeatherAdapter adapter;
     private String city, temperature, status, pressure, humidity, time;
 
     @BindView(R.id.detail_coordinator_container) CoordinatorLayout coordinatorLayout;
@@ -64,7 +65,7 @@ public class MainActivity extends BaseActivity {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
-        WeatherAdapter adapter = new WeatherAdapter(shortWeather);
+        adapter = new WeatherAdapter(shortWeather);
         recyclerView.setAdapter(adapter);
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
@@ -79,7 +80,8 @@ public class MainActivity extends BaseActivity {
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "FAB is pressed", Toast.LENGTH_SHORT).show();
+                startActivityForResult(AddCityActivity.newIntent(
+                        getApplicationContext()), ConstantManager.REQUEST_CODE);
             }
         });
 
@@ -93,6 +95,16 @@ public class MainActivity extends BaseActivity {
         }
 
 //        List<String> test = dataManager.getPreferenceManager().loadWeatherData("Berlin");
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == ConstantManager.REQUEST_CODE && requestCode == RESULT_OK) {
+            String newCity = data.getStringExtra(ConstantManager.RESULT);
+            startCityList.add(newCity);
+            Toast.makeText(MainActivity.this, startCityList.get(startCityList.size()), Toast.LENGTH_SHORT).show();
+            adapter.notifyDataSetChanged();
+        }
     }
 
     private void getReportWithoutConnection() {
