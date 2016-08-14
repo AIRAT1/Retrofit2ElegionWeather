@@ -3,12 +3,14 @@ package de.android.retrofit2elegionweather.ui.activities;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import java.text.DateFormat;
@@ -29,6 +31,7 @@ import de.android.retrofit2elegionweather.ui.adapters.WeatherAdapter;
 import de.android.retrofit2elegionweather.utils.AppConfig;
 import de.android.retrofit2elegionweather.utils.ConstantManager;
 import de.android.retrofit2elegionweather.utils.NetworkStatusChecker;
+import de.android.retrofit2elegionweather.utils.RecyclerItemClickListener;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -60,6 +63,14 @@ public class MainActivity extends BaseActivity {
         recyclerView.setLayoutManager(llm);
         WeatherAdapter adapter = new WeatherAdapter(shortWeather);
         recyclerView.setAdapter(adapter);
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                String cityName = shortWeather.get(position).split(" ")[0];
+                Toast.makeText(MainActivity.this, cityName, Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(MainActivity.this, DetailActivity.class).putExtra(ConstantManager.CITY_NAME, cityName));
+            }
+        }));
 
         initStartCityList();
 

@@ -12,5 +12,7 @@ public class ConstantManager {
     public static final String METRIC_MODE = "metric";
     public static final String LANGUAGE_MODE = "de";
 
+    public static final String CITY_NAME = "CITY_NAME";
+
     public static final int DIALOG = 0;
 }
