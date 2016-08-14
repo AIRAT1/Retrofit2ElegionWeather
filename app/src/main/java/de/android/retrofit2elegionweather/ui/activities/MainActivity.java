@@ -32,8 +32,8 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class WeatherListActivity extends BaseActivity {
-    private static final String TAG = WeatherListActivity.class.getSimpleName();
+public class MainActivity extends BaseActivity {
+    private static final String TAG = MainActivity.class.getSimpleName();
     private DataManager dataManager;
     private String[] weatherInfo;
     private List<String> startCityList;
@@ -44,7 +44,7 @@ public class WeatherListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_weather_list);
+        setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
         dataManager = DataManager.getInstance();
@@ -120,7 +120,7 @@ public class WeatherListActivity extends BaseActivity {
                         loadWeatherInfoValue();
 
                         Log.d(TAG, e.getMessage());
-                        Toast.makeText(WeatherListActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                        Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -132,7 +132,7 @@ public class WeatherListActivity extends BaseActivity {
                     loadWeatherInfoValue();
 
                     Log.d(TAG, t.getMessage());
-                    Toast.makeText(WeatherListActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, t.getMessage(), Toast.LENGTH_LONG).show();
                 }
             });
         }
