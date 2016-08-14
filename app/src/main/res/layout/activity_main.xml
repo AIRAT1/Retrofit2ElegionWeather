@@ -31,11 +31,10 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"
-        android:background="@drawable/gradient"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="8dp"
-        android:src="@drawable/ic_add_circle_outline_black_24dp"/>
+        android:src="@drawable/ic_add_circle_outline_24dp"/>
 
 </android.support.design.widget.CoordinatorLayout>

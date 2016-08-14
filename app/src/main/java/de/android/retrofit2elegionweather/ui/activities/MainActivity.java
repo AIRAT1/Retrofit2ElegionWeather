@@ -71,7 +71,6 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onItemClick(View view, int position) {
                 String cityName = shortWeather.get(position).split(" ")[0];
-                Toast.makeText(MainActivity.this, cityName, Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(MainActivity.this, DetailActivity.class).putExtra(ConstantManager.CITY_NAME, cityName));
             }
         }));
@@ -85,6 +84,21 @@ public class MainActivity extends BaseActivity {
             }
         });
 
+//        if (NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
+//            getReport();
+//        } else {
+//            // TODO load values from preferences into fields
+//            showSnackbar("Network connection failed");
+//            getReportWithoutConnection();
+//            loadWeatherInfoValue();
+//        }
+
+//        List<String> test = dataManager.getPreferenceManager().loadWeatherData("Berlin");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         if (NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
             getReport();
         } else {
@@ -93,8 +107,6 @@ public class MainActivity extends BaseActivity {
             getReportWithoutConnection();
             loadWeatherInfoValue();
         }
-
-//        List<String> test = dataManager.getPreferenceManager().loadWeatherData("Berlin");
     }
 
     @Override
