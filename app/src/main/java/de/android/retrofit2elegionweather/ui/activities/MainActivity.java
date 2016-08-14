@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import de.android.retrofit2elegionweather.R;
 import de.android.retrofit2elegionweather.data.managers.DataManager;
 import de.android.retrofit2elegionweather.data.network.RestService;
 import de.android.retrofit2elegionweather.data.network.weathermodelres.Model;
+import de.android.retrofit2elegionweather.ui.adapters.WeatherAdapter;
 import de.android.retrofit2elegionweather.utils.AppConfig;
 import de.android.retrofit2elegionweather.utils.ConstantManager;
 import de.android.retrofit2elegionweather.utils.NetworkStatusChecker;
@@ -41,6 +44,7 @@ public class MainActivity extends BaseActivity {
     private String city, temperature, status, pressure, humidity, time;
 
     @BindView(R.id.detail_coordinator_container) CoordinatorLayout coordinatorLayout;
+    @BindView(R.id.recyclerView) RecyclerView recyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +53,11 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         dataManager = DataManager.getInstance();
+
         shortWeather = new ArrayList<>();
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(new WeatherAdapter());
 
         initStartCityList();
 
