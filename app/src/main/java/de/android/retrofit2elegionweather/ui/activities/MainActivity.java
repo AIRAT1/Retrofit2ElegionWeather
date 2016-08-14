@@ -37,6 +37,7 @@ public class MainActivity extends BaseActivity {
     private DataManager dataManager;
     private String[] weatherInfo;
     private List<String> startCityList;
+    private List<String> shortWeather;
     private String city, temperature, status, pressure, humidity, time;
 
     @BindView(R.id.detail_coordinator_container) CoordinatorLayout coordinatorLayout;
@@ -48,6 +49,7 @@ public class MainActivity extends BaseActivity {
         ButterKnife.bind(this);
 
         dataManager = DataManager.getInstance();
+        shortWeather = new ArrayList<>();
 
         initStartCityList();
 
@@ -112,6 +114,8 @@ public class MainActivity extends BaseActivity {
 
                         Log.d("LOG", city);
                         Log.d("LOG", temperature);
+                        shortWeather.add(city + " " + temperature + " C");
+                        Log.d("LOG", "" + shortWeather.size());
 
                         // save weather values in preferences
                         saveUserInfoValue();
