@@ -56,8 +56,10 @@ public class MainActivity extends BaseActivity {
 
         shortWeather = new ArrayList<>();
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(new WeatherAdapter());
+        LinearLayoutManager llm = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(llm);
+        WeatherAdapter adapter = new WeatherAdapter(shortWeather);
+        recyclerView.setAdapter(adapter);
 
         initStartCityList();
 

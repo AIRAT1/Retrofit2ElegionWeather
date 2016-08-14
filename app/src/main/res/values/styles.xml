@@ -31,6 +31,6 @@
         <item name="android:layout_gravity">center_vertical</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">@dimen/font_medium_30</item>
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 </resources>

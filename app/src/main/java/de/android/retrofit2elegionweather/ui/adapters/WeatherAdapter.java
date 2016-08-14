@@ -6,13 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import de.android.retrofit2elegionweather.R;
-import de.android.retrofit2elegionweather.ui.views.AspectRatioImageView;
 
 public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherViewHolder> {
-    ArrayList<Object> weathers;
+    List<String> shortWeather;
+
+    public WeatherAdapter(List<String> shortWeather) {
+        this.shortWeather = shortWeather;
+    }
 
     @Override
     public WeatherViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -22,21 +25,23 @@ public class WeatherAdapter extends RecyclerView.Adapter<WeatherAdapter.WeatherV
 
     @Override
     public void onBindViewHolder(WeatherViewHolder holder, int position) {
+        holder.itemShortWeather.setText(shortWeather.get(position));
+    }
 
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return shortWeather.size();
     }
 
     public static class WeatherViewHolder extends RecyclerView.ViewHolder {
-        protected AspectRatioImageView aspectRatioImageView;
-        protected TextView itemShortWeather;
+        TextView itemShortWeather;
         public WeatherViewHolder(View itemView) {
             super(itemView);
-
-            aspectRatioImageView = (AspectRatioImageView) itemView.findViewById(R.id.aspect_ratio_image_view);
             itemShortWeather = (TextView) itemView.findViewById(R.id.item_short_weather);
         }
     }
