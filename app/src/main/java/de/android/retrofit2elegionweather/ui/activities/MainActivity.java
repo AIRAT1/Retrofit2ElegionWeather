@@ -132,6 +132,8 @@ public class MainActivity extends BaseActivity {
         startCityList.add("Koeln, de");
         startCityList.add("Muenchen, de");
         startCityList.add("Hamburg, de");
+        startCityList.add("Bonn, de");
+        startCityList.add("Kazan, ru");
     }
 
     private void getReport() {
