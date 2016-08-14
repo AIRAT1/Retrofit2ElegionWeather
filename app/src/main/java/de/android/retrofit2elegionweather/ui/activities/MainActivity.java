@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -49,6 +50,7 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.detail_coordinator_container) CoordinatorLayout coordinatorLayout;
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
+    @BindView(R.id.fab)FloatingActionButton floatingActionButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +76,12 @@ public class MainActivity extends BaseActivity {
         }));
 
         initStartCityList();
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "FAB is pressed", Toast.LENGTH_SHORT).show();
+            }
+        });
 
         if (NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
             getReport();
