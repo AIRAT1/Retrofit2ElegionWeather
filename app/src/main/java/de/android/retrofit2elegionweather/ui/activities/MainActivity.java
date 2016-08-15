@@ -62,6 +62,26 @@ public class MainActivity extends BaseActivity {
         dataManager = DataManager.getInstance();
 
         shortWeather = new ArrayList<>();
+
+        initStartCityList();
+
+        loadWeatherFromServer();
+
+        initRecyclerView();
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(AddCityActivity.newIntent(
+                        getApplicationContext()), ConstantManager.REQUEST_CODE);
+            }
+        });
+
+
+//        List<String> test = dataManager.getPreferenceManager().loadWeatherData("Berlin");
+    }
+
+    private void initRecyclerView() {
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager llm = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(llm);
@@ -74,31 +94,9 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(MainActivity.this, DetailActivity.class).putExtra(ConstantManager.CITY_NAME, cityName));
             }
         }));
-
-        initStartCityList();
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(AddCityActivity.newIntent(
-                        getApplicationContext()), ConstantManager.REQUEST_CODE);
-            }
-        });
-
-//        if (NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
-//            getReport();
-//        } else {
-//            // TODO load values from preferences into fields
-//            showSnackbar("Network connection failed");
-//            getReportWithoutConnection();
-//            loadWeatherInfoValue();
-//        }
-
-//        List<String> test = dataManager.getPreferenceManager().loadWeatherData("Berlin");
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
+    private void loadWeatherFromServer() {
         if (NetworkStatusChecker.isNetworkAvailable(getApplicationContext())) {
             getReport();
         } else {
