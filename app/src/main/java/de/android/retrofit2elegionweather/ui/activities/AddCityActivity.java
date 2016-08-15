@@ -49,7 +49,7 @@ public class AddCityActivity extends BaseActivity implements View.OnClickListene
             return;
         }
 
-        Intent intent = new Intent();
+        Intent intent = getIntent();
         intent.putExtra(ConstantManager.RESULT, editText.getText().toString());
         setResult(RESULT_OK, intent);
         finish();

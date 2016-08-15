@@ -59,26 +59,29 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddCityActivity.class);
+                startActivityForResult(intent, ConstantManager.REQUEST_CODE);
+            }
+        });
+        initStartCityList();
+        becomeWeather();
+
+//        List<String> test = dataManager.getPreferenceManager().loadWeatherData("Berlin");
+    }
+
+    private void becomeWeather() {
         dataManager = DataManager.getInstance();
 
         shortWeather = new ArrayList<>();
 
-        initStartCityList();
+
 
         loadWeatherFromServer();
 
         initRecyclerView();
-
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(AddCityActivity.newIntent(
-                        getApplicationContext()), ConstantManager.REQUEST_CODE);
-            }
-        });
-
-
-//        List<String> test = dataManager.getPreferenceManager().loadWeatherData("Berlin");
     }
 
     private void initRecyclerView() {
@@ -109,10 +112,11 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == ConstantManager.REQUEST_CODE && requestCode == RESULT_OK) {
+        if (requestCode == ConstantManager.REQUEST_CODE && resultCode == RESULT_OK) {
             String newCity = data.getStringExtra(ConstantManager.RESULT);
             startCityList.add(newCity);
-            Toast.makeText(MainActivity.this, startCityList.get(startCityList.size()), Toast.LENGTH_SHORT).show();
+            Log.d("RESULT", "onActivityResult " + newCity);
+            becomeWeather();
             adapter.notifyDataSetChanged();
         }
     }
